@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,6 +82,50 @@ public class GioHang extends AppCompatActivity {
        });
 
     }
+
+    @SuppressLint("ResourceType")
+    private void OpenBottomSheetDialog() {
+
+
+        View view = getLayoutInflater().inflate(R.layout.bottom_sheet_pay, findViewById(R.id.ln_container));
+
+         bottomSheetDialog = new BottomSheetDialog(GioHang.this ,
+                R.style.BottomSheetDialogThem);
+        bottomSheetDialog.setContentView(view);
+        ((View)view.getParent()).setBackgroundResource(getResources().getColor(android.R.color.transparent));
+        bottomSheetDialog.show();
+
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,##0");
+//
+        TextView tv_tongtien, tv_tienhang, tv_thue, tv_vanchuyen;
+        tv_tongtien = view.findViewById(R.id.tv_tongtien);
+        tv_tienhang = view.findViewById(R.id.tv_tienhang);
+        tv_thue = view.findViewById(R.id.tv_thue);
+        tv_vanchuyen = view.findViewById(R.id.tv_vanchuyen);
+        long tienhang=0, thue = 0, vanchuyen = 0, tongtien = 0;
+        for (Product p:mProductList
+             ) {
+            tienhang += p.getPrice() * p.getSoLuong();
+        }
+        thue = (long) (tienhang * 0.05);
+        vanchuyen = (long) (tienhang * 0.03);
+        tongtien = tienhang + thue + vanchuyen;
+        tv_tongtien.setText(decimalFormat.format(tongtien * 1000) + "");
+        tv_tienhang.setText(decimalFormat.format(tienhang * 1000)+ "");
+        tv_thue.setText(decimalFormat.format(thue* 1000) + "");
+        tv_vanchuyen.setText(decimalFormat.format(vanchuyen* 1000)+ "");
+
+        AppCompatButton btnthanhtoan1 = view.findViewById(R.id.btn_thanhtoan1);
+        btnthanhtoan1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    openDialog();
+            }
+        });
+
+
+    }
+
     public void ChangeData(){
 
         productBuyAdapter.notifyDataSetChanged();
@@ -112,48 +157,6 @@ public class GioHang extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
         }
 
-    }
-//    public void ChangeData(List<Product> mProductList){
-//        this.mProductList = mProductList;
-//    }
-
-    @SuppressLint("ResourceType")
-    public void OpenBottomSheetDialog() {
-        View view = getLayoutInflater().inflate(R.layout.bottom_sheet_pay, null);
-        bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(view);
-        ((View)view.getParent()).setBackgroundResource(getResources().getColor(android.R.color.transparent));
-        bottomSheetDialog.show();
-
-
-
-        DecimalFormat decimalFormat = new DecimalFormat("###,###,##0");
-
-        TextView tv_tongtien, tv_tienhang, tv_thue, tv_vanchuyen;
-        tv_tongtien = view.findViewById(R.id.tv_tongtien);
-        tv_tienhang = view.findViewById(R.id.tv_tienhang);
-        tv_thue = view.findViewById(R.id.tv_thue);
-        tv_vanchuyen = view.findViewById(R.id.tv_vanchuyen);
-        long tienhang=0, thue = 0, vanchuyen = 0, tongtien = 0;
-        for (Product p:mProductList
-             ) {
-            tienhang += p.getPrice() * p.getSoLuong();
-        }
-        thue = (long) (tienhang * 0.05);
-        vanchuyen = (long) (tienhang * 0.03);
-        tongtien = tienhang + thue + vanchuyen;
-        tv_tongtien.setText(decimalFormat.format(tongtien * 1000) + "");
-        tv_tienhang.setText(decimalFormat.format(tienhang* 1000)+ "");
-        tv_thue.setText(decimalFormat.format(thue* 1000)+ "");
-        tv_vanchuyen.setText(decimalFormat.format(vanchuyen* 1000)+ "");
-
-        AppCompatButton btnthanhtoan1 = view.findViewById(R.id.btn_thanhtoan1);
-        btnthanhtoan1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    openDialog();
-            }
-        });
     }
 
     private void openDialog() {
