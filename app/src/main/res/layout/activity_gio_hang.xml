@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<RelativeLayout
+    android:layout_margin="@dimen/_8sdp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/giohang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_16sdp"
+        android:text="Giỏ hàng"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"/>
+    <FrameLayout
+        android:id="@+id/frame_giohang"
+        android:layout_above="@+id/btn_thanhtoan"
+        android:layout_below="@+id/giohang"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/textrong"
+            android:textSize="@dimen/_16sdp"
+            android:layout_gravity="center"
+            android:textColor="#000000"
+            android:text="Giỏ hàng của bạn còn trống"></TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gioHangRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+<androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/btn_thanhtoan"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:text="Thanh toán"
+    android:textAllCaps="false"
+    android:textSize="@dimen/_16sdp"
+    android:textColor="@color/white"
+    android:layout_marginBottom="@dimen/_8sdp"
+    android:background="@drawable/bg_thanh_toan"/>
+
+</RelativeLayout>
+</layout>

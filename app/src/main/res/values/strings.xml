@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">CayCanh</string>
+    <string name="lienhe_btm">Liên hệ</string>
+    <string name="chamsoc_btm">Chăm sóc</string>
+    <string name="tintuc_btm">Tin tức</string>
+    <string name="trangchu_btm">Trang chủ</string>
+    <string name="mota_demo">Khá nổi bật sdfghjkljhgfdDGHKTRfgh asjdhasjd saduahsdiuahsda suhdaiushdiuaDGHKTRfgh asjdhasjd saduahsdiuahsda suhdaiushdiuaDGHKTRfgh asjdhasjd saduahsdiuahsda suhdaiushdiuasaDGHKTRfgh asjdhasjd saduahsdiuahsda suhdaiushdiuashd asdhaisuhdiuawhdiwud với sự pha trộn đặc sắc của lá giữa mà trắng và màu xanh. Cây đặc biệt dễ chăm sóc có thể thích nghi với mọi môi trường, rất phù hợp với người thích cây mà lười chăm sóc.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="diachi_sdt"><![CDATA[Địa chỉ & SĐT]]></string>
+    <string name="dc_hanoi">Số 60 – Ngõ 235 – Yên Hòa – Cầu Giấy – Hà Nội</string>
+    <string name="dc_hcm">Villa 6, Hẻm 21, Đào Duy Anh, Phường 9, Quận Phú Nhuận</string>
+    <string name="lienhe_hi">Hãy liên hệ với chúng tôi để được tư vấn và giải đáp những băn khoăn thắc mắc của bạn!</string>
+    <string name="link"><u>link</u></string>
+    <string name="tim_kiem">Tìm kiếm</string>
+</resources>

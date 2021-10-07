@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_150sdp">
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/img_viewpager"
+        android:src="@mipmap/ic_launcher_round"
+        android:layout_width="match_parent"
+        android:padding="@dimen/_4sdp"
+        android:scaleType="fitXY"
+        android:layout_height="@dimen/_150sdp"/>
+
+</LinearLayout>

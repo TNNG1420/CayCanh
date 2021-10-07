@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/gioHang"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:background="@color/teal_700"
+            android:src="@drawable/ic_baseline_shopping_cart_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            app:layout_constraintTop_toTopOf="@id/gioHang"
+            android:layout_width="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="@id/gioHang"
+            app:layout_constraintLeft_toRightOf="@id/gioHang"
+            android:layout_height="@dimen/_12sdp"
+            app:cardCornerRadius="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_4sdp"
+            app:cardBackgroundColor="#F64242">
+
+            <TextView
+                android:id="@+id/tv_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="0"
+                android:textSize="@dimen/_6sdp"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/white" />
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

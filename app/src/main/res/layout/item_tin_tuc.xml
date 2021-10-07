@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_280sdp"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/anh_tin_tuc"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:src="@drawable/monstera"
+        android:scaleType="centerCrop"/>
+        <TextView
+            android:layout_marginTop="@dimen/_8sdp"
+            android:id="@+id/ten_tin_tuc"
+            android:text="Tìm hiểu loài cây Monstera đột biến có giá lên đến cả tỷ đồng"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>
