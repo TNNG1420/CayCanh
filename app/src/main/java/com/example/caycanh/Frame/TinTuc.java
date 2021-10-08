@@ -54,7 +54,6 @@ List<News> newsList;
             @Override
             public void onResponse(Call<ListNews> call, Response<ListNews> response) {
 
-                Toast.makeText(getActivity(), "Call API news success", Toast.LENGTH_SHORT).show();
                 ListNews listNews = response.body();
                 newsList = listNews.getNews();
                 if(newsList.size() != 0){

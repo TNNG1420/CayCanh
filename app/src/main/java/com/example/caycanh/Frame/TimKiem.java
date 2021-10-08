@@ -139,7 +139,6 @@ public class TimKiem extends AppCompatActivity {
         call.enqueue(new Callback<Tree>() {
             @Override
             public void onResponse(@NonNull Call<Tree> call, Response<Tree> response) {
-                Toast.makeText(TimKiem.this, "Call API success", Toast.LENGTH_SHORT).show();
                 tree = response.body();
                 productList = tree.getTree();
                 if (productList.size() != 0) {

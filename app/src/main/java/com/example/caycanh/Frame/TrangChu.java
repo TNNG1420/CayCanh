@@ -119,7 +119,6 @@ public class TrangChu extends Fragment {
         call.enqueue(new Callback<Tree>() {
             @Override
             public void onResponse(Call<Tree> call, Response<Tree> response) {
-                Toast.makeText(getActivity(), "Call API success", Toast.LENGTH_SHORT).show();
                 tree = response.body();
                 assert tree != null;
                 productList = tree.getTree();
