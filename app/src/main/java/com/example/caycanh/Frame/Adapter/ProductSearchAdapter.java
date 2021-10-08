@@ -2,6 +2,7 @@ package com.example.caycanh.Frame.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.example.caycanh.Frame.Main;
 import com.example.caycanh.Frame.OOP.Product;
 import com.example.caycanh.Frame.SQLite.ProductSQLite;
 import com.example.caycanh.Frame.ShowInfor.ShowInforProduct;
+import com.example.caycanh.Frame.ShowInfor.ShowInforProductActivity;
 import com.example.caycanh.R;
 
 
@@ -66,6 +68,36 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
 
 
                 // add table
+//                ProductSQLite productSQLite = new ProductSQLite(context.getApplicationContext());
+//                try {
+////                    if (productSQLite.getProduct(product.getMsp()) == null) {
+//
+//                    productSQLite.InsertProduct(product);
+////                    }
+//                }catch (Exception e){
+//                    Log.e("ERROR", e.toString());
+//                }
+
+//                Intent intent = new Intent(context,ShowInforProduct.class);
+//                context.startActivity(intent);
+
+//                Context context1 = v.getContext();
+//                Main main = new Main();
+//                ShowInforProduct showInforProduct = new ShowInforProduct();
+//                showInforProduct.setDataProduct(product);
+
+//                main.getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.main_frame, showInforProduct)
+//                        .addToBackStack(null).commit();
+
+                Intent intent = new Intent(context, ShowInforProductActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("product", product);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+
+                // add table
                 ProductSQLite productSQLite = new ProductSQLite(context.getApplicationContext());
                 try {
 //                    if (productSQLite.getProduct(product.getMsp()) == null) {
@@ -75,9 +107,6 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
                 }catch (Exception e){
                     Log.e("ERROR", e.toString());
                 }
-
-                Intent intent = new Intent(context,ShowInforProduct.class);
-                context.startActivity(intent);
 
             }
         });

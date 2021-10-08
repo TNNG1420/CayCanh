@@ -1,6 +1,8 @@
 package com.example.caycanh.Frame.OOP;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     String msp;
     String name;
     String descript;

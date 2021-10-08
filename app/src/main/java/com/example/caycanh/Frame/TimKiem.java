@@ -1,19 +1,19 @@
 package com.example.caycanh.Frame;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.caycanh.Frame.API.RetrofitClient;
-import com.example.caycanh.Frame.Adapter.ProductAdapter;
 import com.example.caycanh.Frame.Adapter.ProductSearchAdapter;
 import com.example.caycanh.Frame.Adapter.SearchAdapter;
 import com.example.caycanh.Frame.OOP.Product;
@@ -62,12 +62,7 @@ public class TimKiem extends AppCompatActivity {
         setTextSearch();
 
         //
-        binding.backImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        binding.backImg.setOnClickListener(v -> onBackPressed());
 
     }
 
@@ -111,7 +106,7 @@ public class TimKiem extends AppCompatActivity {
     }
 
     private List<Search> getDataSearch() {
-        List<Search> searchList = new ArrayList<Search>();
+        List<Search> searchList = new ArrayList<>();
         searchList.add(new Search(1, "Cây cảnh phong thủy"));
         searchList.add(new Search(2, "Cây cảnh trong nhà"));
         searchList.add(new Search(3, "Cây cảnh để bàn"));
@@ -126,7 +121,16 @@ public class TimKiem extends AppCompatActivity {
     private void setSearchAdapter(List<Search> searchList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         binding.searchRcv.setLayoutManager(layoutManager);
-        searchAdapter = new SearchAdapter(this, searchList);
+        searchAdapter = new SearchAdapter(this, searchList, new SearchAdapter.OnClickListener() {
+            @Override
+            public void onItemSearchClickListener(Context context, String text) {
+
+                Intent intent = new Intent(context, TimKiem.class);
+                intent.putExtra("Text", text );
+                context.startActivity(intent);
+                finish();
+            }
+        });
         binding.searchRcv.setAdapter(searchAdapter);
     }
 
@@ -134,7 +138,7 @@ public class TimKiem extends AppCompatActivity {
         Call<Tree> call = RetrofitClient.getInstance().getProductAPI().getAllTreeAPI();
         call.enqueue(new Callback<Tree>() {
             @Override
-            public void onResponse(Call<Tree> call, Response<Tree> response) {
+            public void onResponse(@NonNull Call<Tree> call, Response<Tree> response) {
                 Toast.makeText(TimKiem.this, "Call API success", Toast.LENGTH_SHORT).show();
                 tree = response.body();
                 productList = tree.getTree();

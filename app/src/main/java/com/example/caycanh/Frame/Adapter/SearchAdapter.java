@@ -1,5 +1,6 @@
 package com.example.caycanh.Frame.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -19,12 +20,18 @@ import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
 
+    public interface OnClickListener{
+       void onItemSearchClickListener(Context context, String text);
+    }
+
     Context context;
     List<Search> searchList;
+    OnClickListener onClickListener;
 
-    public SearchAdapter(Context context, List<Search> searchList) {
+    public SearchAdapter(Context context, List<Search> searchList, OnClickListener onClickListener) {
         this.context = context;
         this.searchList = searchList;
+        this.onClickListener = onClickListener;
     }
 
     @Override
@@ -34,18 +41,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchAdapter.SearchViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchAdapter.SearchViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.txt_search.setText(searchList.get(position).getNameSearch());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                onClickListener.onItemSearchClickListener(context, searchList.get(position).getNameSearch());
                 // hthi thong tin tim kiem
-                TimKiem timKiem = new TimKiem();
-                String text = searchList.get(position).getNameSearch();
-                Intent intent = new Intent(context, timKiem.getClass());
-                intent.putExtra("Text", text );
-                context.startActivity(intent);
+//                TimKiem timKiem = new TimKiem();
+//                String text = searchList.get(position).getNameSearch();
+//                Intent intent = new Intent(context, timKiem.getClass());
+//                intent.putExtra("Text", text );
+//                context.startActivity(intent);
                 
             }
         });

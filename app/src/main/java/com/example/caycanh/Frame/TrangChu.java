@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -213,7 +214,16 @@ public class TrangChu extends Fragment {
     private void setSearchAdapter(List<Search> searchList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         binding.searchRcv.setLayoutManager(layoutManager);
-        searchAdapter = new SearchAdapter(getActivity(), searchList);
+        searchAdapter = new SearchAdapter(getActivity(), searchList, new SearchAdapter.OnClickListener() {
+            @Override
+            public void onItemSearchClickListener(Context context, String text) {
+                TimKiem timKiem = new TimKiem();
+//                String text = searchList.get(position).getNameSearch();
+                Intent intent = new Intent(context, timKiem.getClass());
+                intent.putExtra("Text", text );
+                context.startActivity(intent);
+            }
+        });
         binding.searchRcv.setAdapter(searchAdapter);
     }
 

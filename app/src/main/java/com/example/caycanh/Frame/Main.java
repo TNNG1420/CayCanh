@@ -54,26 +54,28 @@ public class Main extends AppCompatActivity {
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.main_frame,trangChu)
-//                                .addToBackStack(TAG_NAME_TRANGCHU)
+                                .addToBackStack(null)
                                 .commit();
                         break;
                     case R.id.tin_tuc:
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.main_frame,tinTuc)
-//                                .addToBackStack(TAG_NAME_TINTUC)
+                                .addToBackStack(null)
                                 .commit();
                         break;
                     case R.id.cham_soc:
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.main_frame,chamSoc)
+                                .addToBackStack(null)
                                 .commit();
                         break;
                     case R.id.lien_he:
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.main_frame,lienHe)
+                                .addToBackStack(null)
                                 .commit();
                         break;
                 }

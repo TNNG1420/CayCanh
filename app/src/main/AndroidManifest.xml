@@ -14,9 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CayCanh"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Frame.TimKiem">
-
-        </activity>
+        <activity
+            android:name=".Frame.ShowInfor.ShowInforProductActivity"
+            android:exported="true" />
+        <activity android:name=".Frame.TimKiem"></activity>
         <activity android:name=".Frame.GioHang" />
         <activity android:name=".Frame.Main">
             <intent-filter>
