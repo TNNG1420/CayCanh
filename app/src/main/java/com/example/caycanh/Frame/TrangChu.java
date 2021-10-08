@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,8 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.example.caycanh.Frame.API.ProductAPI;
 import com.example.caycanh.Frame.API.RetrofitClient;
 import com.example.caycanh.Frame.Adapter.ProductAdapter;
 import com.example.caycanh.Frame.Adapter.ProductRecentAdapter;
@@ -29,7 +26,6 @@ import com.example.caycanh.Frame.OOP.Photo;
 import com.example.caycanh.Frame.OOP.Product;
 import com.example.caycanh.Frame.OOP.Search;
 import com.example.caycanh.Frame.OOP.Tree;
-import com.example.caycanh.Frame.SQLite.DatabaseHandler;
 import com.example.caycanh.Frame.SQLite.ProductSQLite;
 import com.example.caycanh.R;
 import com.example.caycanh.databinding.ActivityTrangChuBinding;
@@ -44,7 +40,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TrangChu extends Fragment {
-    public static final String TAG_NAME_TRANGCHU = TrangChu.class.getName();
     ActivityTrangChuBinding binding;
     Timer mTimer;
     SearchAdapter searchAdapter;
@@ -117,8 +112,6 @@ public class TrangChu extends Fragment {
             Log.e("tana", e.toString());
             Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     private void setProductAdapter() {
@@ -128,6 +121,7 @@ public class TrangChu extends Fragment {
             public void onResponse(Call<Tree> call, Response<Tree> response) {
                 Toast.makeText(getActivity(), "Call API success", Toast.LENGTH_SHORT).show();
                 tree = response.body();
+                assert tree != null;
                 productList = tree.getTree();
                 if (productList.size() != 0) {
                     productAdapter = new ProductAdapter(getActivity(), productList);
@@ -138,7 +132,7 @@ public class TrangChu extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Tree> call, Throwable t) {
+            public void onFailure(Call<Tree> call, @NonNull Throwable t) {
                 Toast.makeText(getActivity(), "Call API failure", Toast.LENGTH_SHORT).show();
             }
         });
@@ -147,7 +141,7 @@ public class TrangChu extends Fragment {
 
     public  void autoSlideIMage(List<Photo> mlistphoto) {
         try {
-            if (mlistphoto == null || mlistphoto.isEmpty() || binding.viewpager == null) {
+            if (mlistphoto == null || mlistphoto.isEmpty()) {
                 return;
             }
         } catch (Exception e) {
@@ -162,17 +156,14 @@ public class TrangChu extends Fragment {
             @Override
             public void run() {
                 {
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            int currentItem = binding.viewpager.getCurrentItem();
-                            int totalItem = getDataPhoto().size() - 1;
-                            if (currentItem < totalItem) {
-                                currentItem++;
-                                binding.viewpager.setCurrentItem(currentItem);
-                            } else
-                                binding.viewpager.setCurrentItem(0);
-                        }
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        int currentItem = binding.viewpager.getCurrentItem();
+                        int totalItem = getDataPhoto().size() - 1;
+                        if (currentItem < totalItem) {
+                            currentItem++;
+                            binding.viewpager.setCurrentItem(currentItem);
+                        } else
+                            binding.viewpager.setCurrentItem(0);
                     });
                 }
             }
@@ -186,7 +177,7 @@ public class TrangChu extends Fragment {
     }
 
     private List<Photo> getDataPhoto() {
-        List<Photo> photoList = new ArrayList<Photo>();
+        List<Photo> photoList = new ArrayList<>();
         photoList.add(new Photo("https://webcaycanh.com/wp-content/uploads/2021/05/cay-van-loc-de-ban.jpg"));
         photoList.add(new Photo("https://webcaycanh.com/wp-content/uploads/2021/05/cay-troc-bac-thuy-sinh.jpg"));
         photoList.add(new Photo("https://webcaycanh.com/wp-content/uploads/2021/05/cay-sao-sang-thuy-sinh.jpg"));
@@ -199,7 +190,7 @@ public class TrangChu extends Fragment {
     }
 
     private List<Search> getDataSearch() {
-        List<Search> searchList = new ArrayList<Search>();
+        List<Search> searchList = new ArrayList<>();
         searchList.add(new Search(1, "Cây cảnh phong thủy"));
         searchList.add(new Search(2, "Cây cảnh trong nhà"));
         searchList.add(new Search(3, "Cây cảnh để bàn"));
@@ -214,15 +205,12 @@ public class TrangChu extends Fragment {
     private void setSearchAdapter(List<Search> searchList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         binding.searchRcv.setLayoutManager(layoutManager);
-        searchAdapter = new SearchAdapter(getActivity(), searchList, new SearchAdapter.OnClickListener() {
-            @Override
-            public void onItemSearchClickListener(Context context, String text) {
-                TimKiem timKiem = new TimKiem();
+        searchAdapter = new SearchAdapter(getActivity(), searchList, (context, text) -> {
+            TimKiem timKiem = new TimKiem();
 //                String text = searchList.get(position).getNameSearch();
-                Intent intent = new Intent(context, timKiem.getClass());
-                intent.putExtra("Text", text );
-                context.startActivity(intent);
-            }
+            Intent intent = new Intent(context, timKiem.getClass());
+            intent.putExtra("Text", text );
+            context.startActivity(intent);
         });
         binding.searchRcv.setAdapter(searchAdapter);
     }
