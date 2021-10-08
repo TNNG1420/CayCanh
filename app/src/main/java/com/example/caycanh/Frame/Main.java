@@ -8,10 +8,13 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
+import android.widget.Toast;
 
 import com.example.caycanh.Frame.SQLite.GioHangSQLite;
 import com.example.caycanh.Frame.ShowInfor.CountNumberProduct;
+import com.example.caycanh.R;
 import com.example.caycanh.databinding.ActivityMainBinding;
 
 import java.util.Objects;
@@ -23,6 +26,8 @@ public class Main extends AppCompatActivity {
     private TinTuc tinTuc;
     private ChamSoc chamSoc;
     private LienHe lienHe;
+
+    boolean checkBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,35 +45,36 @@ public class Main extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).hide();
         getSupportFragmentManager().beginTransaction().add(id.main_frame, trangChu).commit();
+        binding.bottomNavigation.getMenu().findItem(R.id.trang_chu).setChecked(true);
         binding.bottomNavigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case id.trang_chu:
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(id.main_frame,trangChu)
-                            .addToBackStack(null)
                             .commit();
+                    binding.bottomNavigation.getMenu().findItem(R.id.trang_chu).setChecked(true);
                     break;
                 case id.tin_tuc:
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(id.main_frame,tinTuc)
-                            .addToBackStack(null)
                             .commit();
+                    binding.bottomNavigation.getMenu().findItem(id.tin_tuc).setChecked(true);
                     break;
                 case id.cham_soc:
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(id.main_frame,chamSoc)
-                            .addToBackStack(null)
                             .commit();
+                    binding.bottomNavigation.getMenu().findItem(id.cham_soc).setChecked(true);
                     break;
                 case id.lien_he:
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(id.main_frame,lienHe)
-                            .addToBackStack(null)
                             .commit();
+                    binding.bottomNavigation.getMenu().findItem(id.lien_he).setChecked(true);
                     break;
             }
             return true;
@@ -113,7 +119,21 @@ public class Main extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+        if(checkBack){
+            super.onBackPressed();
+            return;
+        }
+
+        checkBack = true;
+        Toast.makeText(this, "Nhấn back thêm lần nữa để thoát", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkBack = false;
+            }
+        }, 2000);
     }
 
     @Override

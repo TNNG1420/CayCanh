@@ -78,7 +78,6 @@ public class ChamSoc extends Fragment {
         try {
 
             cares = careSQLite.getAllCare();
-            Toast.makeText(getContext(), "hi +++ " + careSQLite.getItemsCount(), Toast.LENGTH_LONG).show();
             Care care = cares.get(hihihihi);
             binding.tvNameCare.setText(care.getTitle_care());
             binding.tvContentCare.setText(care.getContent_care());
@@ -117,7 +116,6 @@ public class ChamSoc extends Fragment {
             @Override
             public void onResponse(Call<ListCare> call, Response<ListCare> response) {
                 try{
-                    Toast.makeText(getContext(), "Call API success1", Toast.LENGTH_LONG).show();
                     ListCare listCare;
                     listCare = response.body();
                     cares = listCare.getCare();
@@ -139,7 +137,7 @@ public class ChamSoc extends Fragment {
                     Log.e("hi", "cares: " + cares);
                 }catch(Exception e){
 
-                    Toast.makeText(getContext(), "E "+ e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "ERROR "+ e.toString(), Toast.LENGTH_LONG).show();
                 }
             }
             @Override
